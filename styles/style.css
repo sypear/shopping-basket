@@ -34,6 +34,7 @@ button {
     transition: transform 150ms ease-out;
 }
 
+img:hover,
 button:hover {
     cursor: pointer;
     transform: scale(1.05);
@@ -69,6 +70,12 @@ a {
     font-weight: 700;
     background-color: #000000;
     color: #FFFFFF;
+}
+
+.search {
+    width: 300px;
+    padding: 10px;
+    font-size: 20px;
 }
 
 .modal {
@@ -141,13 +148,7 @@ main {
 }
 
 .search-goods-wrapper {
-    margin-bottom: 30px;
-}
-
-.search-goods {
-    width: 300px;
-    padding: 10px;
-    font-size: 20px;
+    margin: 0 1% 30px;
 }
 
 .goods-list-wrapper {
@@ -157,20 +158,23 @@ main {
 .goods-wrapper {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+    width: 100%;
 }
 
 .goods {
-    width: 300px;
-    padding: 30px 0;
-    margin-bottom: 30px;
+    width: 23%;
+    height: auto;
+    padding: 30px;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-bottom: 20px;
     border-radius: 5px;
     background-color: white;
 }
 
 .goods-image {
-    width: 230px;
+    width: 100%;
+    min-width: 95%;
     height: 230px;
     margin: 0 auto 30px;
     overflow: hidden;
@@ -182,10 +186,6 @@ main {
     object-fit: cover;
     object-position: center center;
     transition: transform 150ms ease-in;
-}
-
-.goods-contents {
-    padding: 0 35px;
 }
 
 #goods-id {
@@ -210,7 +210,7 @@ main {
 
 .cart-wrapper {
     padding: 30px;
-    margin-bottom: 30px;
+    margin: 0 1% 30px;
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.3);
 }
@@ -266,4 +266,9 @@ main {
 
 .selected {
     color: #FFFFFF;
+}
+
+.highlight {
+    font-weight: 700;
+    background-color: #FFFF00;
 }
