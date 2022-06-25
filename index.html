@@ -93,6 +93,47 @@
 
             <button type="button" class="fill-button">구매</button>
         </section>
+
+        <div class="buy-goods modal">
+            <form action="#" method="POST">
+                <label for="buyer_name" class="modal-title">성함</label>
+                <input type="text" name="buyer_name" id="buyer_name" class="modal-content" />
+                <label for="buyer_tel" class="modal-title">연락처</label>
+                <input type="tel" name="buyer_tel" id="buyer_tel" class="modal-content" />
+
+                <div class="button-wrapper">
+                    <button type="submit" class="fill-button submission">입력 완료</button>
+                    <button type="button" class="fill-button close">닫기</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="receipt modal">
+            <div class="receipt-title">
+                <h1 class="modal-title">영수증</h1>
+                <span>2022-06-25 09:47:22</span>
+            </div>
+
+            <div class="receipt-history">
+                <span>
+                    시원한 서큘레이터<br/>
+                    바람나라<br/>
+                    가격 : 400000<br/>
+                    수량 : 1<br/>
+                    합계 : 400000
+                </span>
+            </div>
+
+            <div class="receipt-total">
+                <p>총 합계 :
+                    <span>400000</span>
+                </p>
+            </div>
+
+            <div class="button-wrapper">
+                <button type="button" class="fill-button close">닫기</button>
+            </div>
+        </div>
     </main>
 </body>
 </html>
