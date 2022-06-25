@@ -15,6 +15,8 @@ body {
 button,
 input,
 textarea {
+    border: none;
+    border-radius: 5px;
     font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -53,12 +55,25 @@ a {
 
 .fill-button {
     padding: 10px;
-    border: none;
-    border-radius: 5px;
     font-size: 15px;
     font-weight: 700;
     background-color: #000000;
     color: #FFFFFF;
+}
+
+.modal-title {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.modal-content {
+    display: block;
+    padding: 5px;
+    margin-bottom: 20px;
+    font-size: 17px;
+    border: 1px solid lightgray;
 }
 
 header {
@@ -115,8 +130,6 @@ main {
 .search-goods {
     width: 300px;
     padding: 10px;
-    border: none;
-    border-radius: 3px;
     font-size: 20px;
 }
 
@@ -130,8 +143,8 @@ main {
 
 .goods {
     width: 300px;
-    margin-right: 100px;
     padding: 30px;
+    margin-right: 100px;
     border-radius: 5px;
     background-color: white;
 }
@@ -195,4 +208,34 @@ main {
 .sum-price .price {
     margin-bottom: 15px;
     font-size: 20px;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    width: 500px;
+    height: auto;
+    padding: 50px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    display: none;
+}
+
+.buy-goods .button-wrapper .submission {
+    margin-right: 10px;
+}
+
+.receipt-title {
+    margin-bottom: 30px;
+}
+
+.receipt-history {
+    margin-bottom: 30px;
+}
+
+.receipt-total {
+    margin-bottom: 30px;
 }
