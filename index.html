@@ -21,13 +21,13 @@
             </h1>
             <ul class="menu-list">
                 <li class="menu">
-                    <a href="#" class="selected-menu">Home</a>
+                    <a href="#" class="menu-link selected" id="home-menu">Home</a>
                 </li>
                 <li class="menu">
-                    <a href="#">스토어</a>
+                    <a href="#" class="menu-link" id="store-menu">스토어</a>
                 </li>
                 <li class="menu">
-                    <a href="#">시공견적</a>
+                    <a href="#" class="menu-link" id="estimate-menu">시공견적</a>
                 </li>
             </ul>
         </nav>
@@ -91,7 +91,7 @@
                 </p>
             </div>
 
-            <button type="button" class="fill-button">구매</button>
+            <button type="button" class="fill-button buy-button">구매</button>
         </section>
 
         <div class="buy-goods modal">
@@ -102,8 +102,8 @@
                 <input type="tel" name="buyer_tel" id="buyer_tel" class="modal-content" />
 
                 <div class="button-wrapper">
-                    <button type="submit" class="fill-button submission">입력 완료</button>
-                    <button type="button" class="fill-button close">닫기</button>
+                    <button type="submit" class="fill-button submission-button">입력 완료</button>
+                    <button type="button" class="fill-button" id="buy-goods-close-button">닫기</button>
                 </div>
             </form>
         </div>
@@ -131,9 +131,11 @@
             </div>
 
             <div class="button-wrapper">
-                <button type="button" class="fill-button close">닫기</button>
+                <button type="button" class="fill-button" id="receipt-close-button">닫기</button>
             </div>
         </div>
     </main>
+
+    <script src="./index.js"></script>
 </body>
 </html>
