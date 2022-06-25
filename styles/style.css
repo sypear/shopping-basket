@@ -92,7 +92,7 @@ a {
     font-weight: 700;
 }
 
-.modal-content {
+.modal-contents {
     display: block;
     padding: 5px;
     margin-bottom: 20px;
@@ -136,7 +136,8 @@ nav {
 }
 
 main {
-    margin: 0 100px;
+    width: 80vw;
+    margin: 0 auto;
 }
 
 .search-goods-wrapper {
@@ -155,12 +156,15 @@ main {
 
 .goods-wrapper {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .goods {
     width: 300px;
-    padding: 30px;
-    margin-right: 100px;
+    padding: 30px 0;
+    margin-bottom: 30px;
     border-radius: 5px;
     background-color: white;
 }
@@ -168,7 +172,8 @@ main {
 .goods-image {
     width: 230px;
     height: 230px;
-    margin-bottom: 30px;
+    margin: 0 auto 30px;
+    overflow: hidden;
 }
 
 .goods-image img {
@@ -176,6 +181,15 @@ main {
     height: 100%;
     object-fit: cover;
     object-position: center center;
+    transition: transform 150ms ease-in;
+}
+
+.goods-contents {
+    padding: 0 35px;
+}
+
+#goods-id {
+    display: none;
 }
 
 .goods-title {
