@@ -30,6 +30,15 @@ textarea:active {
     box-shadow: none;
 }
 
+button {
+    transition: transform 150ms ease-out;
+}
+
+button:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
 ul,
 ol {
     padding-left: 0;
@@ -37,6 +46,7 @@ ol {
 }
 
 a {
+    color: #757575;
     text-decoration: none;
 }
 
@@ -59,6 +69,20 @@ a {
     font-weight: 700;
     background-color: #000000;
     color: #FFFFFF;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    width: 500px;
+    height: auto;
+    padding: 50px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    visibility: hidden;
 }
 
 .modal-title {
@@ -109,14 +133,6 @@ nav {
 
 .menu:last-child {
     margin-right: 0;
-}
-
-.menu a {
-    color: #757575;
-}
-
-.menu a.selected-menu {
-    color: #FFFFFF;
 }
 
 main {
@@ -210,21 +226,11 @@ main {
     font-size: 20px;
 }
 
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
-    width: 500px;
-    height: auto;
-    padding: 50px;
-    border-radius: 5px;
-    background-color: #FFFFFF;
-    display: none;
+.buy-goods input {
+    width: 100%;
 }
 
-.buy-goods .button-wrapper .submission {
+.buy-goods .button-wrapper .submission-button {
     margin-right: 10px;
 }
 
@@ -238,4 +244,12 @@ main {
 
 .receipt-total {
     margin-bottom: 30px;
+}
+
+.show {
+    visibility: visible;
+}
+
+.selected {
+    color: #FFFFFF;
 }
