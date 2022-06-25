@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>집꾸미기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+    <!-- 페이지의 도입부이므로 header로 정의 -->
+    <header>
+        <!-- 메뉴 영역이므로 nav로 정의 -->
+        <nav>
+            <!-- nav는 Sectioning Elements이기 때문에 heading 필수 -->
+            <h1 class="logo">
+                <a href="#">집꾸미기</a>
+            </h1>
+            <ul class="menu-list">
+                <li class="menu">
+                    <a href="#" class="selected-menu">Home</a>
+                </li>
+                <li class="menu">
+                    <a href="#">스토어</a>
+                </li>
+                <li class="menu">
+                    <a href="#">시공견적</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 페이지 구조 상 가장 핵심적인 정보 컨텐츠이므로 main으로 정의 -->
+    <main>
+        <!-- 검색어 입력 input은 의미를 갖지 않으므로 div로 감쌈 -->
+        <div class="search-goods-wrapper">
+            <input type="text" name="" id="" class="search-goods" placeholder="검색어 입력" />
+        </div>
+    
+        <!-- 상품 목록이라는 유사한 내용을 하나로 묶기 위해 section으로 정의 -->
+        <section class="goods-list-wrapper">
+            <!-- section은 Sectioning Elements이기 때문에 heading 필수 -->
+            <h1 class="title sr-only">상품 목록</h1>
+    
+            <div class="goods-wrapper">
+                <!-- 상품마다 독립적인 의미를 갖기 때문에 article로 정의 -->
+                <article class="goods">
+                    <div class="goods-image">
+                        <img src="./assets/pr1.JPG" alt="세척나라 식기세척기" />
+                    </div>
+                    <div class="goods-content">
+                        <h1 class="goods-title">
+                            식기세척기
+                        </h1>
+                        <p class="goods-company">
+                            세척나라
+                        </p>
+                        <p class="goods-price">
+                            가격 : <span>10000</span>
+                        </p>
+                        <button type="button" class="fill-button">
+                            담기
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </section>
+    
+        <!-- 장바구니 관련 요소들을 하나로 묶기 위해 section으로 정의 -->
+        <section class="cart-wrapper">
+            <!-- section은 Sectioning Elements이기 때문에 heading 필수 -->
+            <h1 class="title">
+                장바구니
+            </h1>
+
+            <div class="cart">
+                <span>
+                    원하는 상품을 여기로 드래그 하세요 💚
+                </Span>
+            </div>
+
+            <div class="sum-price">
+                <h2 class="title">
+                    최종가격
+                </h2>
+                <p class="price">
+                    합계 <span>700000</span>
+                </p>
+            </div>
+
+            <button type="button" class="fill-button">구매</button>
+        </section>
+    </main>
+</body>
+</html>
