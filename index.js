@@ -119,6 +119,8 @@ window.onload = function() {
     if (localStorage.getItem('shoppingCart') != null) {
         let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
 
+        cart.classList.add('haveGoods');
+
         resetCart();
         shoppingCart.forEach(function(element) {
             let goodsInCartHTML = showCart(element);
@@ -228,8 +230,6 @@ function drop(ev) {
 
 // 드롭 이벤트 대상을 장바구니에 추가하는 함수
 function addShopingCartByDropItem(target) {
-    console.log(target);
-
      // 드롭 이벤트 대상의 상품 정보 찾기
      let id = target.getAttribute('data-id');
      let photo = target.childNodes[1].childNodes[1].getAttribute('src');
