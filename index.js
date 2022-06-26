@@ -23,7 +23,7 @@ function showGoodsList(element) {
     }
 
     // HTML 작성
-    return `<article class="goods">
+    return `<article class="goods" draggable="true">
                 <div class="goods-image">
                     <img src="./assets/${element.photo}" alt="${element.brand} ${element.title}" />
                 </div>
@@ -41,7 +41,7 @@ function showGoodsList(element) {
                         가격 : <span>${element.price}</span>
                     </p>
                     <button type="button" class="fill-button">
-                        담기
+                        장바구니 담기
                     </button>
                 </div>
             </article>`;
