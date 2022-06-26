@@ -216,11 +216,79 @@ function dragEnter(ev) {
 function drop(ev) {
     ev.preventDefault(); // 이벤트의 기본값을 최소화
 
-    let targetClass = ev.dataTransfer.getData('target-class'); // 드래그 앤 드롭의 대상이 되는 데이터를 가져옴
-    let targetId = ev.dataTransfer.getData('target-id');
+    let targetClass = ev.dataTransfer.getData('target-class'); // 드롭 이벤트 대상의 class name 가져옴
+    let targetId = ev.dataTransfer.getData('target-id'); // 드롭 이벤트 대상의 id 가져옴
+
+    // 드롭 이벤트 대상 clone
     let targetHTML = document.getElementsByClassName(targetClass)[targetId].cloneNode(true);
-    
-    ev.target.appendChild(targetHTML);
+
+    // 드롭 이벤트 대상을 장바구니에 추가하는 함수 호출
+    targetHTML = addShopingCartByDropItem(targetHTML);
+}
+
+// 드롭 이벤트 대상을 장바구니에 추가하는 함수
+function addShopingCartByDropItem(target) {
+    console.log(target);
+
+     // 드롭 이벤트 대상의 상품 정보 찾기
+     let id = target.getAttribute('data-id');
+     let photo = target.childNodes[1].childNodes[1].getAttribute('src');
+     let title = (target.childNodes[3].childNodes[1].innerText).trim();
+     let brand = (target.childNodes[3].childNodes[3].innerText).trim();
+     let price = target.childNodes[3].childNodes[5].childNodes[1].innerText;
+     let shoppingCart = new Array();
+
+     // 등록된 상품이 있는 경우
+     if (localStorage.getItem('shoppingCart') != null) {
+        shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+        let isDuplicateAddCart = false;
+
+        // 중복 클릭인 경우
+        for (let i = 0; i < shoppingCart.length; i++) {
+            if (id == shoppingCart[i].id) {
+                shoppingCart[i].quantity = shoppingCart[i].quantity + 1;
+                isDuplicateAddCart = true;
+                break;
+            }
+        }
+
+        if (isDuplicateAddCart == false) {
+            shoppingCart.push({
+                'id': id,
+                'photo': photo,
+                'title': title,
+                'brand': brand,
+                'price': price,
+                'quantity': 1
+            });
+        }
+
+        localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+    } else {
+        // 로컬스토리지에 상품 정보 최초 추가 하기
+        localStorage.setItem(
+            'shoppingCart',
+            JSON.stringify([
+                {
+                    'id': id,
+                    'photo': photo,
+                    'title': title,
+                    'brand': brand,
+                    'price': price,
+                    'quantity': 1
+                }
+            ])
+        );
+
+        shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+        cart.classList.add('haveGoods');
+    }
+
+    resetCart();
+    shoppingCart.forEach(function(element) {
+        let goodsInCartHTML = showCart(element);
+        cart.insertAdjacentHTML('beforeend', goodsInCartHTML);
+    });
 }
 
 // 장바구니 제거 기능
