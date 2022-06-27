@@ -258,7 +258,8 @@ function deleteGoodsInCart(targetId) {
     }
 
     // 3. 가격 합계 계산
-    showTotalPrice(calculateTotalPrice(shoppingCart));
+    let totalPrice = calculateTotalPrice(shoppingCart);
+    showTotalPrice(totalPrice);
 }
 
 // 최종가격 계산 함수
@@ -274,8 +275,17 @@ function calculateTotalPrice(shoppingCart) {
 
 // 가격 합계 화면 출력 함수
 let totalPriceOfGoods = document.getElementById('price');
+let sumPriceWrapper = document.getElementsByClassName('sum-price-wrapper')[0];
 
 function showTotalPrice(totalPrice) {
+    if (totalPrice > 0) {
+        sumPriceWrapper.style.marginBottom = '15px';
+        buyButton.classList.add('show');
+    } else {
+        sumPriceWrapper.style.marginBottom = '0';
+        buyButton.classList.remove('show');
+    }
+
     totalPriceOfGoods.innerText = totalPrice;
 }
 
@@ -326,4 +336,8 @@ window.onload = function() {
             cart.insertAdjacentHTML('beforeend', goodsInCartHTML);
         });
     }
+
+    // 가격 출력
+    let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+    showTotalPrice(calculateTotalPrice(shoppingCart));
 }
