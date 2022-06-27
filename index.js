@@ -3,7 +3,7 @@ let menuList = document.getElementsByClassName('menu-list')[0];
 let menuLink = document.getElementsByClassName('menu-link');
 
 menuList.addEventListener('mouseover', function(e) {
-    for(let i = 0; i < menuLink.length; i++) {
+    for (let i = 0; i < menuLink.length; i++) {
         menuLink[i].classList.remove('selected');
 
         if (e.target == menuLink[i]) {
@@ -68,24 +68,6 @@ searchGoods.addEventListener('change', function() {
     resetGoodsList();
     fetchGoodsList();
 });
-
-window.onload = function() {
-    // 상품 목록 출력
-    fetchGoodsList();
-
-    // 장바구니 목록 출력
-    if (localStorage.getItem('shoppingCart') != null) {
-        let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
-
-        cart.classList.add('haveGoods');
-
-        resetCart();
-        shoppingCart.forEach(function(element) {
-            let goodsInCartHTML = showCart(element);
-            cart.insertAdjacentHTML('beforeend', goodsInCartHTML);
-        });
-    }
-}
 
 // 장바구니 담기 기능
 // 1. 장바구니 담기 버튼 클릭하여 담기
@@ -193,6 +175,7 @@ function addGoodsInShopingCart(target) {
     let price = target.price;
     let shoppingCart = new Array();
 
+    // 1. 상품 추가 시 로컬 스토리지에 추가
     // 등록된 상품이 있는 경우
     if (localStorage.getItem('shoppingCart') != null) {
        shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
@@ -239,38 +222,61 @@ function addGoodsInShopingCart(target) {
        cart.classList.add('haveGoods');
    }
 
-   resetCart();
+   // 2. 장바구니에 상품 추가 후 화면 새로 그려주기
+   resetCart(); // 화면 초기화
    shoppingCart.forEach(function(element) {
-       let goodsInCartHTML = showCart(element);
-       cart.insertAdjacentHTML('beforeend', goodsInCartHTML);
+       cart.insertAdjacentHTML('beforeend', showCart(element)); // 장바구니에 상품 추가
    });
+
+    // 3. 가격 합계 계산
+    let totalPrice = calculateTotalPrice(shoppingCart);
+    showTotalPrice(totalPrice);
 }
 
 // 상품을 장바구니에서 제거하는 함수
 function deleteGoodsInCart(targetId) {
     let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
 
-    // 삭제한 상품 array에서 제외
+    // 1. 삭제한 상품을 로컬 스토리지에서 삭제
     shoppingCart = shoppingCart.filter(element => {
         return element.id !== Number(targetId);
     });
-    
-    // 상품이 0개면 array 자체를 삭제한 후 화면 초기화
+
+    // 2. 상품이 0개면 로컬 스토리지 안의 array 자체를 삭제한 후 화면 초기화
     if (shoppingCart.length == 0) {
         localStorage.removeItem('shoppingCart');
         cart.innerHTML = `<span>원하는 상품을 여기로 드래그 하세요 💚</span>`;
         cart.classList.remove('haveGoods');
+    } else {
+        // 4. 상품이 1개 이상이면 화면 갱신
+        localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
 
-        return;
+        resetCart();
+        shoppingCart.forEach(function(element) {
+            cart.insertAdjacentHTML('beforeend', showCart(element));
+        });
     }
-    
-    localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
 
-    resetCart();
-    shoppingCart.forEach(function(element) {
-        let goodsInCartHTML = showCart(element);
-        cart.insertAdjacentHTML('beforeend', goodsInCartHTML);
-    });
+    // 3. 가격 합계 계산
+    showTotalPrice(calculateTotalPrice(shoppingCart));
+}
+
+// 최종가격 계산 함수
+function calculateTotalPrice(shoppingCart) {
+    let totalPrice = 0;
+
+    for (let i = 0; i < shoppingCart.length; i++) {
+        totalPrice = totalPrice + (shoppingCart[i].price * shoppingCart[i].quantity);
+    }
+
+    return totalPrice;
+}
+
+// 가격 합계 화면 출력 함수
+let totalPriceOfGoods = document.getElementById('price');
+
+function showTotalPrice(totalPrice) {
+    totalPriceOfGoods.innerText = totalPrice;
 }
 
 // 장바구니 화면 추가 함수
@@ -302,4 +308,22 @@ function showCart(element) {
 // 장바구니 화면 리셋 함수
 function resetCart() {
     cart.innerHTML = '';
+}
+
+window.onload = function() {
+    // 상품 목록 출력
+    fetchGoodsList();
+
+    // 장바구니 목록 출력
+    if (localStorage.getItem('shoppingCart') != null) {
+        let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+
+        cart.classList.add('haveGoods');
+
+        resetCart();
+        shoppingCart.forEach(function(element) {
+            let goodsInCartHTML = showCart(element);
+            cart.insertAdjacentHTML('beforeend', goodsInCartHTML);
+        });
+    }
 }
