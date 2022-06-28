@@ -75,11 +75,13 @@
         </section>
 
         <div class="buy-goods modal">
-            <form action="#" method="POST">
-                <label for="buyer_name" class="modal-title">성함</label>
-                <input type="text" name="buyer_name" id="buyer_name" class="modal-contents" />
-                <label for="buyer_tel" class="modal-title">연락처</label>
-                <input type="tel" name="buyer_tel" id="buyer_tel" class="modal-contents" />
+            <form action="#" method="GET">
+                <label for="buyer_name" class="modal-title">이름</label>
+                <input type="text" name="buyer_name" id="buyer_name" class="modal-contents" autocomplete="off" placeholder="이름을 입력해주세요." pattern="^[가-힣]+$" required />
+                <span class="input-alert">한글만 입력 가능합니다.</span>
+                <label for="buyer_tel" class="modal-title">핸드폰 번호</label>
+                <input type="tel" name="buyer_tel" id="buyer_tel" class="modal-contents" autocomplete="off" placeholder="핸드폰 번호를 입력해주세요." maxlength="13" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
+                <span class="input-alert">숫자만 입력 가능합니다.</span>
 
                 <div class="button-wrapper">
                     <button type="submit" class="fill-button submission-button">입력 완료</button>
