@@ -75,13 +75,13 @@ searchGoods.addEventListener('change', function() {
 //  2) 로컬스토리지에 추가하고
 //  3) 장바구니 화면에 출력
 goodsWrapper.addEventListener('click', function(e) {
-    if (e.target.getAttribute('class').includes('add-cart')) {
+    if (e.target.getAttribute('class') == 'fill-button add-cart') {
         // 클릭한 상품 정보 찾기
         let id = e.target.parentNode.parentNode.getAttribute('data-id');
 
         goodsData.products.forEach(element => {
             if (element.id == id) {
-                addGoodsInShopingCart(element);
+                addGoods(element);
             }
         });
     }
@@ -110,15 +110,22 @@ function drop(ev) {
 
     goodsData.products.forEach(element => {
         if (element.id == targetId) {
-            addGoodsInShopingCart(element);
+            addGoods(element);
         }
     })
 }
 
+// 장바구니 수량 변경 기능
+cart.addEventListener('change', function(e) {
+    if (e.target.getAttribute('class') == 'goods-quantity') {
+        changeGoodsQuantity(e.target.parentNode.parentNode.getAttribute('data-id'), e.target.value);
+    }
+});
+
 // 장바구니 제거 기능
 cart.addEventListener('click', function(e) {
-    if (e.target.getAttribute('class').includes('delete-cart')) {
-        deleteGoodsInCart(e.target.parentNode.parentNode.getAttribute('data-id'));
+    if (e.target.getAttribute('class') == 'fill-button delete-cart') {
+        deleteGoods(e.target.parentNode.parentNode.getAttribute('data-id'));
     }
 });
 
@@ -166,7 +173,7 @@ function resetGoodsList() {
 }
 
 // 상품을 장바구니에 추가하는 함수
-function addGoodsInShopingCart(target) {
+function addGoods(target) {
     // 상품 정보 찾기
     let id = target.id;
     let photo = target.photo;
@@ -234,7 +241,7 @@ function addGoodsInShopingCart(target) {
 }
 
 // 상품을 장바구니에서 제거하는 함수
-function deleteGoodsInCart(targetId) {
+function deleteGoods(targetId) {
     let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
 
     // 1. 삭제한 상품을 로컬 스토리지에서 삭제
@@ -258,6 +265,22 @@ function deleteGoodsInCart(targetId) {
     }
 
     // 3. 가격 합계 계산
+    let totalPrice = calculateTotalPrice(shoppingCart);
+    showTotalPrice(totalPrice);
+}
+
+// 상품 수량 변경 함수
+function changeGoodsQuantity(targetId, quantity) {
+    let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+
+    for (let i = 0; i < shoppingCart.length; i++) {
+        if (shoppingCart[i].id == targetId) {
+            shoppingCart[i].quantity = quantity;
+        }
+    }
+
+    localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+
     let totalPrice = calculateTotalPrice(shoppingCart);
     showTotalPrice(totalPrice);
 }
@@ -305,9 +328,7 @@ function showCart(element) {
             <p class="goods-price">
                 가격 : <span>${element.price}</span>
             </p>
-            <p class="goods-quantity">
-                ${element.quantity}
-            </p>
+            <input type="number" class="goods-quantity" min="1" value="${element.quantity}" />
             <button type="button" class="fill-button delete-cart">
                 제거
             </button>
