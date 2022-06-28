@@ -129,6 +129,48 @@ cart.addEventListener('click', function(e) {
     }
 });
 
+// 이름, 핸드폰 번호 입력 기능
+let buyGoods = document.getElementsByClassName('buy-goods')[0];
+
+buyGoods.addEventListener('input', function(e) {
+    // 이름 입력 시 영문, 숫자 입력 제한 (한글만 허용)
+    if (e.target.getAttribute('id') == 'buyer_name') {
+        let buyerName = document.getElementById('buyer_name');
+        let buyerNameInputAlert = document.getElementsByClassName('input-alert')[0];
+        let regExp = /[0-9a-zA-Z\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"\s]/g;
+
+        if (regExp.test(buyerName.value)) {
+            buyerName.style.marginBottom = '0';
+            buyerNameInputAlert.classList.add('show');
+        } else {
+            buyerName.style.marginBottom = '20px';
+            buyerNameInputAlert.classList.remove('show');
+        }
+
+        buyerName.value = buyerName.value.replace(/[^ㄱ-ㅎㅏ-ㅣ가-힣]/gi, '');
+    }
+
+    // 핸드폰 번호 입력 시 자동 하이픈 추가
+    if (e.target.getAttribute('id') == 'buyer_tel') {
+        let buyerTel = document.getElementById('buyer_tel');
+        let buyerTelInputAlert = document.getElementsByClassName('input-alert')[1];
+        let regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z\{\}\[\]\/?.,;:|\)*~`!^\_+<>@\#$%&\\\=\(\'\"\s]/g;
+
+        if (regExp.test(buyerTel.value)) {
+            buyerTel.style.marginBottom = '0';
+            buyerTelInputAlert.classList.add('show');
+        } else {
+            buyerTel.style.marginBottom = '20px';
+            buyerTelInputAlert.classList.remove('show');
+        }
+
+        buyerTel.value = buyerTel.value
+                        .replace(/[^0-9]/g, '')
+                        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+                        .replace(/(\-{1,2})$/g, "");
+    }
+});
+
 // 검색어 하이라이트 함수
 function SearchWordHighlights(title) {
     let regex = new RegExp(searchGoods.value, 'g');
@@ -345,7 +387,7 @@ window.onload = function() {
     // 상품 목록 출력
     fetchGoodsList();
 
-    // 장바구니 목록 출력
+    // 장바구니 목록, 가격 출력
     if (localStorage.getItem('shoppingCart') != null) {
         let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
 
@@ -356,9 +398,7 @@ window.onload = function() {
             let goodsInCartHTML = showCart(element);
             cart.insertAdjacentHTML('beforeend', goodsInCartHTML);
         });
-    }
 
-    // 가격 출력
-    let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
-    showTotalPrice(calculateTotalPrice(shoppingCart));
+        showTotalPrice(calculateTotalPrice(shoppingCart));
+    }
 }
