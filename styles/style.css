@@ -273,6 +273,12 @@ main {
     width: 100%;
 }
 
+.input-alert {
+    display: none;
+    margin-bottom: 20px;
+    color: #FF0000;
+}
+
 .buy-goods .button-wrapper .submission-button {
     margin-right: 10px;
 }
