@@ -118,6 +118,11 @@ function drop(ev) {
 // 장바구니 수량 변경 기능
 cart.addEventListener('change', function(e) {
     if (e.target.getAttribute('class') == 'goods-quantity') {
+        let regExp = /[^0-9]/g;
+
+        e.target.value = e.target.value.replace(regExp, '');
+        console.log(e.target.value);
+
         changeGoodsQuantity(e.target.parentNode.parentNode.getAttribute('data-id'), e.target.value);
     }
 });
