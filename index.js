@@ -121,7 +121,6 @@ cart.addEventListener('change', function(e) {
         let regExp = /[^0-9]/g;
 
         e.target.value = e.target.value.replace(regExp, '');
-        console.log(e.target.value);
 
         changeGoodsQuantity(e.target.parentNode.parentNode.getAttribute('data-id'), e.target.value);
     }
@@ -175,6 +174,81 @@ buyGoods.addEventListener('input', function(e) {
                         .replace(/(\-{1,2})$/g, "");
     }
 });
+
+// 이름, 핸드폰 번호 입력 후 영수증 띄우기
+let buyForm = document.getElementById('buy-form');
+let receipt = document.getElementsByClassName('receipt')[0];
+
+buyForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // 새로고침 방지
+
+    buyGoods.classList.remove('show');
+    receipt.classList.add('show');
+
+    showCanvas();
+});
+
+// 영수증 캔버스 그리기
+let canvas = document.getElementById('receipt-canvas');
+let ctx = canvas.getContext('2d');
+
+// 현재 날짜 구하기
+function getNowDate() {
+    let receiptDate = new Date();
+    let year = receiptDate.getFullYear();
+    let month = receiptDate.getMonth() + 1;
+    let date = receiptDate.getDate();
+    let hours = receiptDate.getHours();
+    let minutes = receiptDate.getMinutes();
+    let seconds = receiptDate.getSeconds();
+
+    return `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
+}
+
+function resetCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// 영수증 출력
+function showCanvas() {
+    resetCanvas();
+
+    let shoppingCart = getListOfPurchasedGoods();
+
+    ctx.font = `${20 - shoppingCart.length}px Noto Sans KR`;
+    
+    let dateHeight = 50 - shoppingCart.length * 5;
+    ctx.fillText(getNowDate(), 0, dateHeight);
+    
+    let receiptHeight = dateHeight + 50 - (shoppingCart.length * 3);
+
+    shoppingCart.forEach((element, i) => {
+        ctx.fillText(element.title, 0, receiptHeight + i+1 * 10);
+        ctx.fillText(element.brand, 0, receiptHeight + i+1 * 30);
+        ctx.fillText('가격 : ' + element.price + '원', 0, receiptHeight + i+1 * 50);
+        ctx.fillText('수량 : ' + element.quantity + '개', 0, receiptHeight + i+1 * 70);
+        receiptHeight = receiptHeight + 100 - (shoppingCart.length * 2);
+
+        if (shoppingCart.length == i + 1) {
+            ctx.font = `bold ${20 - shoppingCart.length}px Noto Sans KR`;
+            ctx.fillText('총 합계 : ' + calculateTotalPrice(shoppingCart) + '원', 0, 607);
+        }
+    })
+}
+
+// 영수증 닫기
+let receiptCloseButton = document.getElementById('receipt-close-button');
+
+receiptCloseButton.addEventListener('click', function() {
+    receipt.classList.remove('show');
+});
+
+// 구매 목록 가져오기
+function getListOfPurchasedGoods() {
+    let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+
+    return shoppingCart;
+}
 
 // 검색어 하이라이트 함수
 function SearchWordHighlights(title) {
@@ -255,6 +329,7 @@ function addGoods(target) {
            });
        }
 
+       console.log('밍?');
        localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
    } else {
        // 로컬스토리지에 상품 정보 최초 추가 하기
@@ -322,7 +397,7 @@ function changeGoodsQuantity(targetId, quantity) {
 
     for (let i = 0; i < shoppingCart.length; i++) {
         if (shoppingCart[i].id == targetId) {
-            shoppingCart[i].quantity = quantity;
+            shoppingCart[i].quantity = Number(quantity);
         }
     }
 
@@ -418,7 +493,7 @@ function hello() {
 }
 
 window.onload = function() {
-    // hello();
+    hello();
 
     // 상품 목록 출력
     fetchGoodsList();
