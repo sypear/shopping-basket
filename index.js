@@ -56,6 +56,10 @@ buyGoodsModal.addEventListener('click', function(e) {
     // 클릭한 요소가 닫기 버튼일 때 모달 창 닫도록 구현 (이벤트 버블링 이용)
     if (e.target == buyGoodsCloseButton) {
         buyGoodsModal.classList.remove('show');
+
+        // 이름, 핸드폰 번호 입력 내용 초기화
+        buyerName.value = '';
+        buyerTel.value = '';
     }
 });
 
@@ -135,12 +139,14 @@ cart.addEventListener('click', function(e) {
 
 // 이름, 핸드폰 번호 입력 기능
 let buyGoods = document.getElementsByClassName('buy-goods')[0];
+let buyerName = document.getElementById('buyer_name');
+let buyerNameInputAlert = document.getElementsByClassName('input-alert')[0];
+let buyerTel = document.getElementById('buyer_tel');
+let buyerTelInputAlert = document.getElementsByClassName('input-alert')[1];
 
 buyGoods.addEventListener('input', function(e) {
     // 이름 입력 시 영문, 숫자 입력 제한 (한글만 허용)
     if (e.target.getAttribute('id') == 'buyer_name') {
-        let buyerName = document.getElementById('buyer_name');
-        let buyerNameInputAlert = document.getElementsByClassName('input-alert')[0];
         let regExp = /[0-9a-zA-Z\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"\s]/g;
 
         if (regExp.test(buyerName.value)) {
@@ -156,8 +162,6 @@ buyGoods.addEventListener('input', function(e) {
 
     // 핸드폰 번호 입력 시 자동 하이픈 추가
     if (e.target.getAttribute('id') == 'buyer_tel') {
-        let buyerTel = document.getElementById('buyer_tel');
-        let buyerTelInputAlert = document.getElementsByClassName('input-alert')[1];
         let regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z\{\}\[\]\/?.,;:|\)*~`!^\_+<>@\#$%&\\\=\(\'\"\s]/g;
 
         if (regExp.test(buyerTel.value)) {
