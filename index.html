@@ -75,7 +75,7 @@
         </section>
 
         <div class="buy-goods modal">
-            <form action="#" method="GET">
+            <form action="#" method="GET" id="buy-form">
                 <label for="buyer_name" class="modal-title">이름</label>
                 <input type="text" name="buyer_name" id="buyer_name" class="modal-contents" autocomplete="off" placeholder="이름을 입력해주세요." pattern="^[가-힣]+$" required />
                 <span class="input-alert">한글만 입력 가능합니다.</span>
@@ -91,26 +91,10 @@
         </div>
 
         <div class="receipt modal">
-            <div class="receipt-title">
-                <h1 class="modal-title">영수증</h1>
-                <span>2022-06-25 09:47:22</span>
-            </div>
+            <h1 class="receipt-title">영수증</h1>
 
-            <div class="receipt-history">
-                <span>
-                    시원한 서큘레이터<br/>
-                    바람나라<br/>
-                    가격 : 400000<br/>
-                    수량 : 1<br/>
-                    합계 : 400000
-                </span>
-            </div>
-
-            <div class="receipt-total">
-                <p>총 합계 :
-                    <span>400000</span>
-                </p>
-            </div>
+            <canvas id="receipt-canvas" width="400px" height="620px">
+            </canvas>
 
             <div class="button-wrapper">
                 <button type="button" class="fill-button" id="receipt-close-button">닫기</button>
