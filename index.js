@@ -329,7 +329,6 @@ function addGoods(target) {
            });
        }
 
-       console.log('밍?');
        localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
    } else {
        // 로컬스토리지에 상품 정보 최초 추가 하기
