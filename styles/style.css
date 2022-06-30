@@ -279,20 +279,33 @@ main {
     color: #FF0000;
 }
 
-.buy-goods .button-wrapper .submission-button {
+.submission-button {
     margin-right: 10px;
 }
 
+.receipt {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 800px;
+    transform: translate(-50%, -50%);
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    border-radius: 5px;
+    background-color: #FEFEFE;
+}
+
 .receipt-title {
-    margin-bottom: 30px;
+    text-align: center;
 }
 
-.receipt-history {
-    margin-bottom: 30px;
+#receipt-close-button {
+    text-align: right;
 }
 
-.receipt-total {
-    margin-bottom: 30px;
+.receipt .button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .show {
