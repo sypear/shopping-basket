@@ -375,7 +375,7 @@ function showCart(element) {
             <p class="goods-price">
                 가격 : <span>${element.price}</span>
             </p>
-            <input type="number" class="goods-quantity" min="1" value="${element.quantity}" />
+            <input type="text" class="goods-quantity" min="1" value="${element.quantity}" />
             <button type="button" class="fill-button delete-cart">
                 제거
             </button>
